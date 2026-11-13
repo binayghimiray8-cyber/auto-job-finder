@@ -1,0 +1,7 @@
+@import "tailwindcss";
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:#f7f8fa; color:#23272f; }
+.inp { width:100%; border:1px solid #d9dde3; border-radius:6px; padding:8px 10px; background:#fff; font-size:14px; }
+.inp:focus { outline:2px solid #2f6fd6; outline-offset:0; border-color:#2f6fd6; }
+.btn { background:#2f6fd6; color:#fff; border-radius:6px; padding:8px 14px; font-size:14px; }
+.btn:disabled { opacity:.5; }
+.btn2 { border:1px solid #d9dde3; background:#fff; border-radius:6px; padding:6px 12px; font-size:13px; }

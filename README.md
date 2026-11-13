@@ -3,7 +3,7 @@
 1. Create a Supabase project. In the SQL Editor run supabase/schema.sql, then supabase/schema2.sql.
 2. Authentication > Providers > Email: turn OFF "Allow new users to sign up". Add your own user under Authentication > Users.
 3. Copy .env.example to .env (project URL + anon key only).
-4. Gemini key stays on the server: install the Supabase CLI, then
+4. Gemini key: paste it in the website under Settings (stored privately in your Supabase database). The steps below are optional (server-wide fallback key):
    supabase login; supabase link --project-ref YOUR_REF
    supabase secrets set GEMINI_API_KEY=your_key   (optional: GEMINI_MODEL=model-name)
    supabase functions deploy ai
