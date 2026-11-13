@@ -25,13 +25,16 @@ export default function Settings({ userId }: { userId: string }) {
     catch (e) { setMsg({ ok: false, text: 'Saved, but the test failed: ' + (e as Error).message }) }
   }
 
-  async function save() {
+    async function save() {
     const k = key.trim()
     if (!k && !hint) return setMsg({ ok: false, text: 'Paste your Gemini API key first.' })
     setBusy(true); setMsg(null)
-    const row: Record<string, unknown> = { user_id: userId, gemini_model: model.trim() || DEFAULT_MODEL, updated_at: new Date().toISOString() }
-    if (k) { row.gemini_api_key = k; row.key_hint = k.slice(-4) }
-    const { error } = await supabase.from('user_settings').upsert(row, { onConflict: 'user_id' })
+    const patch: Record<string, unknown> = { gemini_model: model.trim() || DEFAULT_MODEL, updated_at: new Date().toISOString() }
+    if (k) { patch.gemini_api_key = k; patch.key_hint = k.slice(-4) }
+    let { data: rows, error } = await supabase.from('user_settings').update(patch).eq('user_id', userId).select('user_id')
+    if (!error && (!rows || rows.length === 0)) {
+      ;({ error } = await supabase.from('user_settings').insert({ user_id: userId, ...patch }))
+    }
     if (error) { setBusy(false); return setMsg({ ok: false, text: 'Could not save: ' + error.message }) }
     setKey(''); await load(); await test(); setBusy(false)
   }
