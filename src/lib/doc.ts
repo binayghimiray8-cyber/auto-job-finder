@@ -1,7 +1,7 @@
 const OK = ['H1', 'H2', 'H3', 'P', 'UL', 'OL', 'LI', 'B', 'STRONG', 'I', 'EM', 'BR', 'DIV', 'SPAN']
 export function clean(h: string) {
   const d = new DOMParser().parseFromString(h, 'text/html')
-  d.body.querySelectorAll('*').forEach(e => { if (!OK.includes(e.tagName)) e.remove(); else [...e.attributes].forEach(a => e.removeAttribute(a.name)) })
+    d.body.querySelectorAll('*').forEach(e => { if (!OK.includes(e.tagName)) e.remove(); else Array.from(e.attributes).forEach(a => e.removeAttribute(a.name)) })
   return d.body.innerHTML
 }
 export function printDoc(html: string, photo: string | null, title: string) {
